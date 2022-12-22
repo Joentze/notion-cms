@@ -6,8 +6,8 @@ from datetime import datetime
 
 app = Flask(__name__)
 # app.config["DEBUG"] = True
-PORT = int(environ["PORT"])
-SECRET_KEY = environ["NOTION_TOKEN"]
+PORT = int(environ.get("PORT"))
+SECRET_KEY = environ.get("NOTION_TOKEN")
 
 @app.route("/", methods = ["GET"])
 def hello():
@@ -88,7 +88,7 @@ def post_feedback(db_id):
     return "Check if name, email and feedback in json body"
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=PORT)
     # response_db = post(f"https://api.notion.com/v1/databases/{DB_ID}/query",headers={
     #     "Notion-Version": "2022-06-28",
     #     "Authorization":f"Bearer {SECRET_KEY}",
