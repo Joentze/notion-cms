@@ -1,12 +1,12 @@
 
 from requests import get, patch, post
 from flask import Flask, request
-from os import environ
+from os import environ, path
 from datetime import datetime
 
 app = Flask(__name__)
-app.config["DEBUG"] = True
-
+# app.config["DEBUG"] = True
+PORT = int(environ["PORT"])
 SECRET_KEY = environ["NOTION_TOKEN"]
 
 @app.route("/", methods = ["GET"])
@@ -88,16 +88,16 @@ def post_feedback(db_id):
     return "Check if name, email and feedback in json body"
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=8000)
     # response_db = post(f"https://api.notion.com/v1/databases/{DB_ID}/query",headers={
     #     "Notion-Version": "2022-06-28",
     #     "Authorization":f"Bearer {SECRET_KEY}",
-    #     "Content-Type":"application/json"
+    #     "Content-Type":"app/json"
     # })
     # response = response_db.json()
     # for page_id in [page["id"] for page in response["results"]]:
     #     content = get(f"https://api.notion.com/v1/blocks/{page_id}/children?page_size=100",headers={
     #         "Notion-Version": "2022-06-28",
     #         "Authorization":f"Bearer {SECRET_KEY}",
-    #         "Content-Type":"application/json"
+    #         "Content-Type":"app/json"
     #     })
