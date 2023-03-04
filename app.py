@@ -21,7 +21,6 @@ def get_notion_db(db_id):
         "Authorization":f"Bearer {SECRET_KEY}",
         "Content-Type":"application/json"
     })
-    response.headers.add("Access-Control-Allow-Origin", "*")
     return response.json()
 
 @app.route("/page/<page_id>", methods=["GET"])
@@ -31,7 +30,6 @@ def get_notion_page(page_id):
         "Authorization":f"Bearer {SECRET_KEY}",
         "Content-Type":"application/json"
     })
-    response.headers.add("Access-Control-Allow-Origin", "*")
     return response.json()
 
 @app.route("/feedback/<db_id>", methods=["POST"])
