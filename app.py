@@ -3,8 +3,9 @@ from requests import get, patch, post
 from flask import Flask, request
 from os import environ, path
 from datetime import datetime
-
+from flask_cors import CORS
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 # app.config["DEBUG"] = True
 PORT = int(environ.get("PORT"))
 SECRET_KEY = environ.get("NOTION_TOKEN")
@@ -20,6 +21,7 @@ def get_notion_db(db_id):
         "Authorization":f"Bearer {SECRET_KEY}",
         "Content-Type":"application/json"
     })
+    response.headers.add("Access-Control-Allow-Origin", "*")
     return response.json()
 
 @app.route("/page/<page_id>", methods=["GET"])
@@ -29,6 +31,7 @@ def get_notion_page(page_id):
         "Authorization":f"Bearer {SECRET_KEY}",
         "Content-Type":"application/json"
     })
+    response.headers.add("Access-Control-Allow-Origin", "*")
     return response.json()
 
 @app.route("/feedback/<db_id>", methods=["POST"])
@@ -84,6 +87,7 @@ def post_feedback(db_id):
         }
         }
         )
+        
         return response.json()
     return "Check if name, email and feedback in json body"
 
